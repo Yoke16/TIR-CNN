@@ -1,0 +1,31 @@
+data:
+  root_dirs: 
+    - '/array1/satellite/lujc/new_2022'           # 这里包含 6 月份的 .npz 文件
+    - '/array1/satellite/lujc/new_2022/month_07'  # 这里包含 7 月份的 .npz 文件
+    - '/array1/satellite/lujc/new_2022/month_08'  # 这里包含 8 月份的 .npz 文件
+  stats_dir: './stats_test_2022_jja'
+
+training:
+  device: "cpu"  # 如果在 GPU 服务器请改为 "cuda"
+  batch_size: 8
+  epochs: 50
+  learning_rate: 0.001
+  l2_lambda: 0.01
+  num_workers: 16
+  checkpoint_interval: 10
+  output_dir: './output_test_2022_jja'
+
+model:
+  input_channels: 16  # [8 TIR] + [VZA] + [7 cloud params]
+  output_channels_cls: 10  # CldType分类，10类 (0-9)
+  output_channels_reg: 7  # 7个云参数回归
+  base_channels: 24
+
+early_stopping:
+  patience: 5  # 测试时patience可以小一些
+  min_delta:  0.001
+
+visualization:
+  global_lat_range: [10, 50]
+  global_lon_range: [80, 190]
+  resolution: 0.04

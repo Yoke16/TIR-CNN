@@ -1,0 +1,31 @@
+data:
+  root_dirs:
+    - '/home/zhangfj/lujc/data/monthly_archives_2022'
+    - '/home/zhangfj/lujc/data/monthly_archives_2023'
+    - '/home/zhangfj/lujc/data/monthly_archives_2024'
+  stats_dir: './stats'
+
+training:
+  device: "cuda"
+  batch_size: 32
+  epochs: 100
+  learning_rate: 0.001
+  l2_lambda: 0.01
+  num_workers: 24
+  checkpoint_interval: 100
+  output_dir: './output'  # ✅ 修正到正确位置
+
+model:
+  input_channels: 16  # [8 TIR] + [VZA] + [7 cloud params]
+  output_channels_cls: 10  # CldType分类，10类 (0-9)
+  output_channels_reg: 7  # 7个云参数回归
+  base_channels: 24
+
+early_stopping:
+  patience: 10
+  min_delta: 0.001
+
+visualization:
+  global_lat_range: [10, 50]
+  global_lon_range: [80, 190]
+  resolution: 0.04
